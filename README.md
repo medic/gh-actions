@@ -1,2 +1,3 @@
 # gh-actions
-Github actions for CHT applications autodeployment
+
+This repository contains Github actions for CHT applications autodeployment.
