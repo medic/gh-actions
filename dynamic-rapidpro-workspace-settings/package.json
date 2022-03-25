@@ -8,10 +8,13 @@
     "test": "mocha test/*.spec.js --timeout 10000 --slow 500"
   },
   "author": "Medic Inc.",
-  "license": "ISC",
+  "license": "AGPL-3.0-only",
   "dependencies": {
     "@actions/core": "^1.5.0",
-    "@actions/github": "^5.0.0",
+    "@actions/github": "^5.0.0"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^6.0.0-beta.0",  
     "axios": "^0.21.4",
     "chai": "^4.3.6",
     "fs": "^0.0.1-security",
@@ -21,8 +24,5 @@
     "sinon": "^13.0.1",
     "template-file": "^6.0.1",
     "util": "^0.12.4"
-  },
-  "devDependencies": {
-    "@faker-js/faker": "^6.0.0-beta.0"
   }
 }

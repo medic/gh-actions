@@ -53,6 +53,18 @@ describe(`rapidpro action test suite`, () => {
     expect( function () {
       utils.getInputs();
     }).to.throw( Error );
+
+    expect( function () {
+      utils.getInputs(null);
+    }).to.throw( Error );
+
+    expect( function () {
+      utils.getInputs({});
+    }).to.throw( Error );
+
+    expect( function () {
+      utils.getInputs(undefined);
+    }).to.throw( Error );
   });
 
   it(`should update content using the given data`, async () => {

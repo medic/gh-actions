@@ -8925,12 +8925,10 @@ const core = __nccwpck_require__(2499);
 const fs = __nccwpck_require__(7147);
 const { run } = __nccwpck_require__(6492);
 
-const githubWorkspacePath = process.env['GITHUB_WORKSPACE'];
-
-const settingsFile = 'app_settings.json';
-const flowsFile = 'flows.js';
-
-run(githubWorkspacePath, core, fs);
+(async () => {
+  const githubWorkspacePath = process.env['GITHUB_WORKSPACE'];
+  run(githubWorkspacePath, core, fs);
+})();
 
 })();
 
