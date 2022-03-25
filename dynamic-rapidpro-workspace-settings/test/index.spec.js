@@ -21,7 +21,6 @@ describe(`rapidpro action test suite`, () => {
     sandbox.stub(process, 'env').value({ 'GITHUB_WORKSPACE': path.join(__dirname, '../') });
     sandbox.stub(fs, 'writeFileSync').returns({});
     sandbox.stub(process, 'stdout');
-    sandbox.stub(axios, 'put').resolves(mockedAxiosResponse);
   });
 
   afterEach(() => {
@@ -82,12 +81,19 @@ describe(`rapidpro action test suite`, () => {
   });
 
   it(`run method should complete successfully`, async () => {
+    sandbox.stub(axios, 'put').resolves(mockedAxiosResponse);
     const response = await utils.run(process.env.GITHUB_WORKSPACE, secrets, fs);
     expect(response).to.be.true;
   });
 
   it(`run should fail if github workspace is not defined`, async () => {
     await utils.run(null, secrets, fs);
+    expect(process.exitCode).to.equal(1);
+  });
+
+  it(`run should fail if axios fails to put medic-credentials`, async () => {
+    sandbox.stub(axios, 'put').rejects({ message: 'Internal server error', status: 500 });
+    await utils.run(process.env.GITHUB_WORKSPACE, secrets, fs);
     expect(process.exitCode).to.equal(1);
   });
 });
