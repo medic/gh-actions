@@ -2,9 +2,22 @@ const core = require('@actions/core');
 const path = require('path');
 const { render } = require('template-file');
 const axios = require('axios').default;
-const util = require('util')
+const util = require('util');
 
-const fields = ['hostname', 'couch_node_name', 'couch_username', 'couch_password', 'rp_hostname', 'value_key', 'rp_contact_group', 'write_patient_state_flow', 'rp_api_token', 'rp_flows', 'directory', 'app_settings_file', 'flows_file']
+const fields = ['hostname',
+  'couch_node_name', 
+  'couch_username', 
+  'couch_password', 
+  'rp_hostname', 
+  'value_key', 
+  'rp_contact_group', 
+  'write_patient_state_flow', 
+  'rp_api_token', 
+  'rp_flows', 
+  'directory', 
+  'app_settings_file', 
+  'flows_file'
+];
 
 const getReplacedContent = async (content, data) =>{
   try{

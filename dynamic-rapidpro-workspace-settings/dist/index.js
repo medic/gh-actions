@@ -8705,9 +8705,22 @@ const core = __nccwpck_require__(2499);
 const path = __nccwpck_require__(1017);
 const { render } = __nccwpck_require__(1733);
 const axios = (__nccwpck_require__(5211)["default"]);
-const util = __nccwpck_require__(3837)
+const util = __nccwpck_require__(3837);
 
-const fields = ['hostname', 'couch_node_name', 'couch_username', 'couch_password', 'rp_hostname', 'value_key', 'rp_contact_group', 'write_patient_state_flow', 'rp_api_token', 'rp_flows', 'directory', 'app_settings_file', 'flows_file']
+const fields = ['hostname',
+  'couch_node_name', 
+  'couch_username', 
+  'couch_password', 
+  'rp_hostname', 
+  'value_key', 
+  'rp_contact_group', 
+  'write_patient_state_flow', 
+  'rp_api_token', 
+  'rp_flows', 
+  'directory', 
+  'app_settings_file', 
+  'flows_file'
+];
 
 const getReplacedContent = async (content, data) =>{
   try{

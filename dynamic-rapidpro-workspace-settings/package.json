@@ -4,8 +4,9 @@
   "description": "dynamic-rapidpro-workspace Shared GitHub Action",
   "main": "index.js",
   "scripts": {
+    "eslint": "npx eslint {,**}/*.js {,**}/*.json",
     "build": "ncc build index.js --license licenses.txt",
-    "test": "mocha test/*.spec.js --timeout 10000 --slow 500"
+    "test": "npm run eslint && mocha test/*.spec.js --timeout 10000 --slow 500"
   },
   "author": "Medic Inc.",
   "license": "AGPL-3.0-only",
@@ -14,9 +15,12 @@
     "@actions/github": "^5.0.0"
   },
   "devDependencies": {
-    "@faker-js/faker": "^6.0.0-beta.0",  
+    "@faker-js/faker": "^6.0.0-beta.0",
+    "@medic/eslint-config": "^1.1.0",
     "axios": "^0.21.4",
     "chai": "^4.3.6",
+    "eslint": "^8.12.0",
+    "eslint-plugin-json": "^2.1.2",
     "fs": "^0.0.1-security",
     "mocha": "^9.2.1",
     "path": "^0.12.7",

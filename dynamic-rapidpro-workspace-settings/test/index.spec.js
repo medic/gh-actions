@@ -4,11 +4,10 @@ const sinon = require('sinon');
 const utils = require('../utils');
 const secrets = require('./env');
 const settings = require('./app_settings.json');
-const flows = require('./flows');
 const fs = require('fs');
 const axios = require('axios').default;
 
-let sandbox = sinon.createSandbox();
+const sandbox = sinon.createSandbox();
 
 describe(`rapidpro action test suite`, () => {
   const mockedAxiosResponse = {
@@ -103,10 +102,16 @@ describe(`rapidpro action test suite`, () => {
  * @param {object} haystack the JavaScript object
  * @param {string}  needle the key to search
  */
-const search = (haystack, needle) =>
-  needle in haystack
-    ? haystack[needle]
-    : Object.values(haystack).reduce((acc, val) => {
-      if (acc !== undefined) return acc;
-      if (typeof val === 'object') return search(val, needle);
-    }, undefined);
+const search = (haystack, needle) => {
+  if(needle in haystack) {
+    return haystack[needle];
+  }
+  return Object.values(haystack).reduce((acc, val) => {
+    if (acc !== undefined) {
+      return acc;
+    }
+    if (typeof val === 'object') {
+      return search(val, needle);
+    }
+  }, undefined);
+};
