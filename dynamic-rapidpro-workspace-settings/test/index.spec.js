@@ -9,13 +9,7 @@ const axios = require('axios').default;
 
 const sandbox = sinon.createSandbox();
 
-describe(`rapidpro action test suite`, () => {
-  const mockedAxiosResponse = {
-    data: {},
-    status: 200,
-    statusText: 'OK'
-  };
-  
+describe(`rapidpro action test suite`, () => {  
   beforeEach(() => {
     sandbox.stub(process, 'env').value({ 'GITHUB_WORKSPACE': path.join(__dirname, '../') });
     sandbox.stub(fs, 'writeFileSync').returns({});
@@ -27,7 +21,6 @@ describe(`rapidpro action test suite`, () => {
   });
 
   it(`should get a formatted url to set medic-credentials`, async () => {
-    // check the expected url is set
     const url = utils.getCouchDbUrl(secrets.hostname, secrets.couch_node_name, secrets.value_key, secrets.couch_username, secrets.couch_password);
     expect(url.origin).to.be.equal(secrets.hostname);
     expect(url.username).to.be.equal(secrets.couch_username);
@@ -75,12 +68,12 @@ describe(`rapidpro action test suite`, () => {
     try {
       await utils.getReplacedContent(settings);
     } catch (err) {
-      expect(err).to.include(new Error());
+      expect(err).to.be.an.instanceOf(Error);
     }
   });
 
-  it(`run method should complete successfully`, async () => {
-    sandbox.stub(axios, 'put').resolves(mockedAxiosResponse);
+  it(`run should complete successfully`, async () => {
+    sandbox.stub(axios, 'put').resolves({ message: 'Ok', status: 200 });
     const response = await utils.run(process.env.GITHUB_WORKSPACE, secrets, fs);
     expect(response).to.be.true;
   });
