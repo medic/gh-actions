@@ -73,9 +73,10 @@ describe(`rapidpro action test suite`, () => {
   });
 
   it(`run should complete successfully`, async () => {
+    process.exitCode = 0;
     sandbox.stub(axios, 'put').resolves({ message: 'Ok', status: 200 });
-    const response = await utils.run(process.env.GITHUB_WORKSPACE, secrets, fs);
-    expect(response).to.be.true;
+    await utils.run(process.env.GITHUB_WORKSPACE, secrets, fs);
+    expect(process.exitCode).to.equal(0);
   });
 
   it(`run should fail if github workspace is not defined`, async () => {

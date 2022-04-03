@@ -8758,7 +8758,7 @@ const getFormattedFlows = flows => `module.exports = ${util.inspect(flows)};\n`;
 const run = async (githubWorkspacePath, params, fs) => {
   try {
     if (!githubWorkspacePath) {
-      throw new Error('GITHUB_WORKSPACE not defined');
+      throw new Error(`GITHUB_WORKSPACE not defined`);
     }    
     const secrets = getInputs(params);
     const codeRepository = path.resolve(path.resolve(githubWorkspacePath), secrets.directory);
@@ -8770,8 +8770,7 @@ const run = async (githubWorkspacePath, params, fs) => {
     await axios.put(url.href, `"${secrets.rp_api_token}"`);    
     fs.writeFileSync(`${codeRepository}/${secrets.app_settings_file}`, settings);
     fs.writeFileSync(`${codeRepository}/${secrets.flows_file}`, getFormattedFlows(secrets.rp_flows));
-    core.info('Successful');
-    return true;
+    core.info(`Successful`);
   } catch (error) {
     core.setFailed(error.message);
   }
