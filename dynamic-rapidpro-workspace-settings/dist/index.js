@@ -8939,7 +8939,7 @@ const { run } = __nccwpck_require__(6492);
 
 (async () => {
   const githubWorkspacePath = process.env['GITHUB_WORKSPACE'];
-  run(githubWorkspacePath, core, fs);
+  await run(githubWorkspacePath, core, fs);
 })();
 
 })();

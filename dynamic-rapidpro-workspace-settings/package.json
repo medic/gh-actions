@@ -4,7 +4,7 @@
   "description": "dynamic-rapidpro-workspace Shared GitHub Action",
   "main": "index.js",
   "scripts": {
-    "eslint": "npx eslint {,**}/*.js {,**}/*.json",
+    "eslint": "npx eslint '{,**}/*.js' '{,**}/*.json'",
     "build": "ncc build index.js --license licenses.txt",
     "test": "npm run eslint && mocha test/*.spec.js --timeout 10000 --slow 500"
   },
@@ -12,21 +12,18 @@
   "license": "AGPL-3.0-only",
   "dependencies": {
     "@actions/core": "^1.5.0",
-    "@actions/github": "^5.0.0"
+    "axios": "^0.21.4",
+    "template-file": "^6.0.1",
+    "util": "^0.12.4"
   },
   "devDependencies": {
     "@faker-js/faker": "^6.0.0-beta.0",
     "@medic/eslint-config": "^1.1.0",
-    "axios": "^0.21.4",
     "chai": "^4.3.6",
     "eslint": "^8.12.0",
     "eslint-plugin-json": "^2.1.2",
-    "fs": "^0.0.1-security",
     "mocha": "^9.2.1",
-    "path": "^0.12.7",
     "rosie": "^2.1.0",
-    "sinon": "^13.0.1",
-    "template-file": "^6.0.1",
-    "util": "^0.12.4"
+    "sinon": "^13.0.1"
   }
 }

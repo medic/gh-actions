@@ -45,14 +45,13 @@ inputs:
     description: The UUID of the flow to write patient state.
     required: true
 
-outputs:
-  app-settings: 
-    description: Updated app-settings.json
-    value: ${{ steps.update-app-settings.outputs }}
+  app_settings_file:
+    description: The CHT app-settings file.
+    required: true
 
-  rp_flows: 
-    description: A flows.js file to be used in compile-app-settings
-    value: ${{ steps.generate-flows-js.outputs }}
+  flows_file:
+    description: The `.js` file to contain the flow UUIDs module.
+    required: true
 
 runs:
   using: 'node12'

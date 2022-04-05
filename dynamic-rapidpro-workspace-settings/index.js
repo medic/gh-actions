@@ -4,5 +4,5 @@ const { run } = require('./utils');
 
 (async () => {
   const githubWorkspacePath = process.env['GITHUB_WORKSPACE'];
-  run(githubWorkspacePath, core, fs);
+  await run(githubWorkspacePath, core, fs);
 })();
