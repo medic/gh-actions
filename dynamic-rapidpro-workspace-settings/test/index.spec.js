@@ -13,7 +13,6 @@ describe(`rapidpro action test suite`, () => {
   beforeEach(() => {
     sandbox.stub(process, 'env').value({ 'GITHUB_WORKSPACE': path.join(__dirname, '../') });
     sandbox.stub(fs, 'writeFileSync').returns({});
-    sandbox.stub(process, 'stdout');
   });
 
   afterEach(() => {
@@ -88,6 +87,19 @@ describe(`rapidpro action test suite`, () => {
     sandbox.stub(axios, 'put').rejects({ message: 'Internal server error', status: 500 });
     await utils.run(process.env.GITHUB_WORKSPACE, secrets, fs);
     expect(process.exitCode).to.equal(1);
+  });
+
+  it(`should be false if invalid flows data is given`, async () => {
+    let isValid = utils.isValidFlows({});
+    expect(isValid).to.be.false;
+
+    isValid = utils.isValidFlows(0);
+    expect(isValid).to.be.false;
+  });
+
+  it(`should be true if valid flows data is given`, async () => {
+    const isValid = utils.isValidFlows(secrets.rp_flows);
+    expect(isValid).to.be.true;
   });
 });
 

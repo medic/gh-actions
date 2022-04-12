@@ -45,14 +45,6 @@ inputs:
     description: The UUID of the flow to write patient state.
     required: true
 
-  app_settings_file:
-    description: The CHT app-settings file.
-    required: true
-
-  flows_file:
-    description: The `.js` file to contain the flow UUIDs module.
-    required: true
-
 runs:
   using: 'node12'
   main: 'dist/index.js'

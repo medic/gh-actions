@@ -12,8 +12,6 @@ Factory.define('secrets').attrs({
   rp_contact_group: faker.datatype.uuid(),
   write_patient_state_flow: faker.datatype.uuid(),
   directory: 'test',
-  app_settings_file: 'app_settings.json',
-  flows_file: 'flows.js',
   rp_flows: {
     sample_flow_1_uuid: faker.datatype.uuid(),
     sample_flow_2_uuid: faker.datatype.uuid()
