@@ -15,8 +15,8 @@ Normally, you would want a staging deployment to use the staging workspace and a
 
 ```
 module.exports = {
-  sample_flow_1_uuid: '3f6a48d3-703a-493b-bb10-f4a38a442cda',
-  sample_flow_2_uuid: '064107cf-9bc5-4042-a657-825fdb5a92a4',
+  sample_flow_1_uuid: '{{sample_flow_1_uuid}}',
+  sample_flow_2_uuid: '{{sample_flow_2_uuid}}',
   ...
 };
 ```
@@ -49,9 +49,9 @@ jobs:
         rp_hostname: my.rapidpro.workspace.url
         rp_api_token: ${{ secrets.RAPIDPRO_STAGING_TOKEN }}
         value_key: medic.credentials.key
+        outbound_mapping_exprs: ${{ secrets.OUTBOUND_MAPPING_EXPRS }}
         rp_contact_group: ${{ secrets.RAPIDPRO_STAGING_GROUP }}
         rp_flows: ${{ secrets.RAPIDPRO_STAGING_FLOWS }}
-        write_patient_state_flow: ${{ secrets.RAPIDPRO_STAGING_WRITE_PATIENT_STATE_FLOW }}
         app_settings_file: app_settings.json
         flows_file: flows.js
 ```
@@ -68,15 +68,68 @@ Token cb9affcf72f787d6f0413a3394f32e8cfff0f8ec
 79abde8c-5f65-4e04-9ee1-4cecdc8852e1
 ```
 
-#### flows
+#### outbound_mapping_exprs
 ```
 {
+  sample_group_1: '2a875f9a-ef05-4d64-970f-c352a8f4d547',
+  sample_group_2: '4f73b18c-33ff-4beb-a481-016845166e4a',
+  sample_helper_flow_1: '1a79ffa4-4a4e-4654-bf34-7ca15c122d9a',
+  sample_helper_flow_2: '6964844d-e6b5-4640-9b8b-e4b4abe5e4df',
+  sample_urn_1: '+254742242196',
+  sample_urn_2: '+18632837473',
   sample_flow_1_uuid: '3f6a48d3-703a-493b-bb10-f4a38a442cda',
   sample_flow_2_uuid: '064107cf-9bc5-4042-a657-825fdb5a92a4',
-  ...
 }
 ```
-#### write_patient_state_flow
+#### app_settings_file
 ```
-c80848e1-72f3-4e86-8e9e-ce002bee4906
+{
+  "outbound": {
+    "first_config": {
+      "relevant_to": "...",
+      "destination": {
+        "base_url": "{{rp_hostname}}",
+        "auth": {
+          "type": "header",
+          "name": "Authorization",
+          "value_key": "{{value_key}}"
+        },
+        "path": "/api/v2/contacts.json"
+      },
+      "mapping": {
+        "language": {
+          "expr": "doc.preferred_language"
+        },
+        "urns": {
+          "expr": "[ 'tel:{{sample_urn_1}}' ]"
+        },
+        "groups": {
+          "expr": "{{sample_group_1}}"
+        },
+        ...
+      }
+    },
+    "second_config": {
+      "relevant_to": "...",
+      "destination": {
+        "base_url": "{{rp_hostname}}",
+        "auth": {
+          "type": "header",
+          "name": "Authorization",
+          "value_key": "{{value_key}}"
+        },
+        "path": "/api/v2/flow_starts.json"
+      },
+      "mapping": {
+        "flow": {
+          "expr": "{{sample_helper_flow_2}}"
+        },
+        "urns": {
+          "expr": "['tel:{{sample_urn_2}}']"
+        },
+        ...
+      }
+    }
+  }
+}
 ```
