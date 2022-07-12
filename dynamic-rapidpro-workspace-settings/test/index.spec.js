@@ -90,16 +90,29 @@ describe(`rapidpro action test suite`, () => {
   });
 
   it(`should be false if invalid flows data is given`, async () => {
-    let isValid = utils.isValidFlows({});
+    let isValid = utils.isValidObject({});
     expect(isValid).to.be.false;
 
-    isValid = utils.isValidFlows(0);
+    isValid = utils.isValidObject(0);
     expect(isValid).to.be.false;
   });
 
   it(`should be true if valid flows data is given`, async () => {
-    const isValid = utils.isValidFlows(secrets.rp_flows);
+    const isValid = utils.isValidObject(secrets.outbound_mapping_exprs);
     expect(isValid).to.be.true;
+  });
+
+  it(`should return a flat object if nested is given`, async () => {
+    const n = Object.keys(secrets).length;
+    const flattened = utils.flatten(secrets);
+    expect(n).to.be.lessThan(Object.keys(flattened).length);
+  });
+
+  it(`should retain a flat object if flat is given`, async () => {
+    const obj = {urn: '+1'};
+    const n = Object.keys(obj).length;
+    const flattened = utils.flatten(obj);
+    expect(n).to.equal(Object.keys(flattened).length);
   });
 });
 
