@@ -102,7 +102,7 @@ describe(`rapidpro action test suite`, () => {
     expect(isValid).to.be.true;
   });
 
-  it(`should return a flat object if nested is given`, async () => {
+  it(`should return a flat object if nested object is given`, async () => {
     const n = Object.keys(secrets).length;
     const flattened = utils.flatten(secrets);
     expect(n).to.be.lessThan(Object.keys(flattened).length);
