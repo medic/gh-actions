@@ -10355,7 +10355,7 @@ const run = async (githubWorkspacePath, params, fs) => {
       throw new Error(`GITHUB_WORKSPACE not defined`);
     }
     const secrets = getInputs(params);
-    
+    const flattenedSecrets = flattenObject(secrets);
     if (!isValidObject(secrets.outbound_mapping_exprs)) {
       throw new Error(`Invalid outbound mapping expressions data`);
     }
@@ -10364,27 +10364,32 @@ const run = async (githubWorkspacePath, params, fs) => {
     const url = getCouchDbUrl(secrets.hostname, secrets.couch_node_name, secrets.value_key, secrets.couch_username, secrets.couch_password);
     const settingsFile = fs.existsSync(baseSettingsFile) ? baseSettingsFile : appSettingsFile;
     const appSettings = fs.readFileSync(`${codeRepository}/${settingsFile}`, 'utf8');
-    const settings = await getReplacedContent(JSON.parse(appSettings), flatten(secrets));
+    const settings = await getReplacedContent(JSON.parse(appSettings), flattenedSecrets);
     let flowsContent = null;
     if (fs.existsSync(flowsFile)) {
       const rawFlowsContent = fs.readFileSync(`${codeRepository}/${flowsFile}`, 'utf8');
-      flowsContent = await getReplacedContent(rawFlowsContent, flatten(secrets));
+      flowsContent = await getReplacedContent(rawFlowsContent, flattenedSecrets);
     }
 
     await axios.put(url.href, `"${secrets.rp_api_token}"`);
     fs.writeFileSync(`${codeRepository}/${settingsFile}`, settings);
-    fs.writeFileSync(`${codeRepository}/${flowsFile}`, flowsContent);
+    if(flowsContent !== null){
+      fs.writeFileSync(`${codeRepository}/${flowsFile}`, flowsContent);
+    }
     core.info(`Successful`);
   } catch (error) {
     core.setFailed(error.message);
   }
 };
 
-const flatten = obj => {
+const flattenObject = obj => {
+  if(!isValidObject(obj)){
+    throw new Error(`Value is not an object`);
+  }
   let res = {};
   for (const [key, value] of Object.entries(obj)) {
     if (typeof value === 'object') {
-      res = { ...res, ...flatten(value) };
+      res = { ...res, ...flattenObject(value) };
     } else {
       res[key] = value;
     }
@@ -10399,7 +10404,7 @@ module.exports = {
   getInputs,
   run,
   isValidObject,
-  flatten
+  flattenObject
 };
 
 
