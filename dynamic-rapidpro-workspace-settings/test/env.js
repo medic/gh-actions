@@ -9,13 +9,17 @@ Factory.define('secrets').attrs({
   rp_hostname: faker.internet.url(),
   rp_api_token: faker.datatype.uuid(),
   value_key: 'rapidpro.dev',
-  rp_contact_group: faker.datatype.uuid(),
-  write_patient_state_flow: faker.datatype.uuid(),
-  directory: 'test',
-  rp_flows: {
+  outbound_mapping_exprs: {
+    sample_group_1: faker.datatype.uuid(),
+    sample_group_2: faker.datatype.uuid(),
+    sample_helper_flow_1: faker.datatype.uuid(),
+    sample_helper_flow_2: faker.datatype.uuid(),
+    sample_urn_1: faker.phone.phoneNumber('+254#########'),
+    sample_urn_2: faker.phone.phoneNumber('+1##########'),
     sample_flow_1_uuid: faker.datatype.uuid(),
     sample_flow_2_uuid: faker.datatype.uuid()
-  }
+  },
+  directory: 'test'
 });
 
 const secrets = Factory.build(`secrets`);

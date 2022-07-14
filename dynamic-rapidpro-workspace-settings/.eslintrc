@@ -1,6 +1,6 @@
 {
   "parserOptions": {
-    "ecmaVersion": 2017
+    "ecmaVersion": 9
   },
   "extends": ["@medic", "plugin:json/recommended"],
   "plugins": ["json"],

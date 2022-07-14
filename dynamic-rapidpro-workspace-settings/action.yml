@@ -33,16 +33,12 @@ inputs:
     description: The password key configured in CouchDB's admin config.
     required: true
 
-  rp_contact_group:
-    description: The UUID of the contact group to update in app-settings (optional).
+  outbound_mapping_exprs:
+    description: The various UUIDs such as contact groups, helper flows, urns to update in app-settings (some exprs are optional).
     required: true
 
   rp_flows:
     description: The list of flows for your workspace.
-    required: true
-
-  write_patient_state_flow:
-    description: The UUID of the flow to write patient state.
     required: true
 
 runs:
