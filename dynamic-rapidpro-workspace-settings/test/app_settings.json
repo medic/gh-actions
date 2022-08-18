@@ -16,10 +16,10 @@
           "expr": "doc.preferred_language"
         },
         "urns": {
-          "expr": "[ 'tel:' + doc.phone ]"
+          "expr": "[ 'tel:{{sample_urn_1}}' ]"
         },
         "groups": {
-          "expr": "{{rp_contact_group}}"
+          "expr": "{{sample_group_1}}"
         },
         "fields.medic_id": {
           "expr": "doc._id"
@@ -69,10 +69,10 @@
       },
       "mapping": {
         "flow": {
-          "expr": "{{write_patient_state_flow}}"
+          "expr": "{{sample_helper_flow_1}}"
         },
         "urns": {
-          "expr": "['tel:+10001234567']"
+          "expr": "['tel:{{sample_urn_2}}']"
         },
         "extra.patient_id": {
           "expr": "doc.fields.patient_uuid",
@@ -109,10 +109,10 @@
       },
       "mapping": {
         "flow": {
-          "expr": "{{write_patient_state_flow}}"
+          "expr": "{{sample_helper_flow_2}}"
         },
         "urns": {
-          "expr": "['tel:+10001234567']"
+          "expr": "['tel:{{sample_urn_2}}']"
         },
         "extra.patient_id": {
           "expr": "doc._id",
